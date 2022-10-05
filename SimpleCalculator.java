@@ -1,10 +1,76 @@
 import java.util.Scanner;
+import java.util.Stack;
+
 public class SimpleCalculator{
 
+public static int evaluate(String expression)
+    {
+        char[] terms = expression.toCharArray();
+ 
+        Stack<Integer> values = new
+                              Stack<Integer>();
+ 
+        Stack<Character> operators = new
+                              Stack<Character>();
+ 
+        for (int i = 0; i < terms.length; i++)
+        {
+             
+            if (terms[i] == ' ')
+                continue;
+ 
+            if (terms[i] >= '0' &&
+                 terms[i] <= '9')
+            {
+                StringBuffer stringBuffer = new
+                            StringBuffer();
+                 
+                while (i < terms.length &&
+                        terms[i] >= '0' &&
+                          terms[i] <= '9')
+                    stringBuffer.append(terms[i++]);
+                values.push(Integer.parseInt(stringBuffer.
+                                      toString()));
+               
+                  i--;
+            }
+ 
+            else if (terms[i] == '(')
+                operators.push(terms[i]);
+ 
+            else if (terms[i] == ')')
+            {
+                while (operators.peek() != '(')
+                  values.push(applyOp(operators.pop(),
+                                   values.pop(),
+                                 values.pop()));
+                operators.pop();
+            }
+ 
+            else if (terms[i] == '+' ||
+                     terms[i] == '-' ||
+                     terms[i] == '*')
+            {
 
-    // Returns true if 'op2' has higher
-    // or same precedence as 'op1',
-    // otherwise returns false.
+                while (!operators.empty() &&
+                       hasPrecedence(terms[i],
+                                    operators.peek()))
+                  values.push(applyOp(operators.pop(),
+                                   values.pop(),
+                                 values.pop()));
+ 
+                operators.push(terms[i]);
+            }
+        }
+ 
+        while (!operators.empty())
+            values.push(applyOp(operators.pop(),
+                             values.pop(),
+                           values.pop()));
+ 
+        return values.pop();
+    }
+ 
     public static boolean hasPrecedence(char op1, char op2)
     {
         if (op2 == '(' || op2 == ')')
@@ -21,9 +87,6 @@ public class SimpleCalculator{
         }
     }
 
-    // A utility method to apply an
-    // operator 'op' on operands 'a'
-    // and 'b'. Return the result.
     public static int applyOp(char operator, int operand1, int operand2)
     {
         switch (operator)
@@ -44,7 +107,6 @@ public class SimpleCalculator{
     {
         String userInput;
   
-        // Take input from the user
         Scanner sc = new Scanner(System.in);
   
         System.out.println("Enter the equation with spaces between the numbers and operators.");
