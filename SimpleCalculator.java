@@ -112,10 +112,10 @@ public static int evaluate(String expression)
 
         System.out.println("Enter the equation with spaces between the numbers and operators.");
 
-        userInput = sc.next();
-        
-        result = evaluate(userInput);
-        
+        userInput = sc.nextLine();
+       
+        result = SimpleCalculator.evaluate(userInput);
+
         System.out.println("The result of the equation is: " + result);
         sc.close();
     
