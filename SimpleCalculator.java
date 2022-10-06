@@ -106,13 +106,17 @@ public static int evaluate(String expression)
     public static void main(String[] args)
     {
         String userInput;
-  
-        Scanner sc = new Scanner(System.in);
-  
-        System.out.println("Enter the equation with spaces between the numbers and operators.");
-  
-        userInput = sc.next();
+        int result;
 
+        Scanner sc = new Scanner(System.in);
+
+        System.out.println("Enter the equation with spaces between the numbers and operators.");
+
+        userInput = sc.next();
+        
+        result = evaluate(userInput);
+        
+        System.out.println("The result of the equation is: " + result);
         sc.close();
     
     }
