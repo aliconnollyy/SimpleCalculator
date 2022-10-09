@@ -77,7 +77,7 @@ public static int evaluate(String expression)
         {
             return false;
         }
-        if ((op1 == '*' || op1 == '/') && (op2 == '+' || op2 == '-'))
+        if ((op1 == '*') && (op2 == '+' || op2 == '-'))
         {
             return false;
         }
