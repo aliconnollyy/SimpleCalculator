@@ -35,7 +35,7 @@ public class Testing {
 		
 		//Testing subtraction with small numbers
 		String userInput1 = "1 - 3 - 2 - 2";
-		String expectedResult1 = -"6";
+		String expectedResult1 = "-6";
 		assertEquals("Testing subtraction with small numbers", expectedResult1, SimpleCalculator.evaluate(userInput1));
 		
 		// Testing addition with negative numbers
