@@ -5,7 +5,7 @@ import java.util.Stack;
 
 public class SimpleCalculator{
 
-public static int evaluate(String expression)
+public static String evaluate(String expression)
     {
         char[] terms = expression.toCharArray();
  
@@ -57,8 +57,8 @@ public static int evaluate(String expression)
         {
             values.push(applyOp(operators.pop(), values.pop(), values.pop()));
         }
- 
-        return values.pop();
+        String result = Integer.toString(values.pop());
+        return result;
     }
  
     public static boolean hasPrecedence(char op1, char op2)
@@ -96,7 +96,7 @@ public static int evaluate(String expression)
         public static void main(String[] args)
     {
         String userInput = "";
-        int result;
+        String result;
         boolean valid;
         boolean repeat = true;
 
