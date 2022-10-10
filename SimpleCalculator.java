@@ -91,30 +91,42 @@ public static int evaluate(String expression)
         return 0;
     }
 
-    public static void main(String[] args)
+        public static void main(String[] args)
     {
-        String userInput;
+        String userInput = "";
         int result;
-        boolean exit = false;
+        boolean valid;
+        boolean repeat = true;
 
         Scanner sc = new Scanner(System.in);
-        
-        while(!exit)
-        {
-            System.out.println("Enter the equation with spaces between the numbers and operators.");
+        while(repeat) {
+            valid = true;
+            System.out.println("Enter the equation or 'exit' to end the program.");
             userInput = sc.nextLine();
-       
-            if(userInput == "exit")
+            for(int i = 0 ; i<userInput.length(); i++) 
             {
-                exit = true;
+                if(userInput.equals("exit")) 
+                {
+                    repeat = false;
+                }
+                if(userInput.charAt(i) != '0' && userInput.charAt(i) != '1' && userInput.charAt(i) != '2' && userInput.charAt(i) != '3' && userInput.charAt(i) != '4' && 
+                        userInput.charAt(i) != '5' && userInput.charAt(i) != '6' && userInput.charAt(i) != '7' && userInput.charAt(i) != '8' && userInput.charAt(i) > '9'  && 
+                        userInput.charAt(i) != ' ' && userInput.charAt(i) != '+' && userInput.charAt(i) != '-' && userInput.charAt(i) != '*'  ) 
+                {
+                    valid = false;
+                }
             }
-            else
-            {
+            if(valid) {
                 result = SimpleCalculator.evaluate(userInput);
                 System.out.println("The result of the equation is: " + result);
             }
+            else if(valid == false && repeat == true){
+                System.out.println("The expression is invalid.");
+            }
+            else {
+                System.out.print("You have exited the program.");
+            }
         }
-        
         sc.close();
     }
 }
