@@ -14,10 +14,10 @@ public static int evaluate(String expression)
         for (int i = 0; i < terms.length; i++)
         {  
             if (terms[i] == ' ')
+            {
                 continue;
- 
-            if (terms[i] >= '0' &&
-                 terms[i] <= '9')
+            }
+            if (terms[i] >= '0' && terms[i] <= '9')
             {
                 StringBuffer stringBuffer = new StringBuffer();
                  
@@ -95,17 +95,26 @@ public static int evaluate(String expression)
     {
         String userInput;
         int result;
+        boolean exit = false;
 
         Scanner sc = new Scanner(System.in);
-
-        System.out.println("Enter the equation with spaces between the numbers and operators.");
-
-        userInput = sc.nextLine();
+        
+        while(!exit)
+        {
+            System.out.println("Enter the equation with spaces between the numbers and operators.");
+            userInput = sc.nextLine();
        
-        result = SimpleCalculator.evaluate(userInput);
-
-        System.out.println("The result of the equation is: " + result);
+            if(userInput == "exit")
+            {
+                exit = true;
+            }
+            else
+            {
+                result = SimpleCalculator.evaluate(userInput);
+                System.out.println("The result of the equation is: " + result);
+            }
+        }
+        
         sc.close();
-    
     }
 }
