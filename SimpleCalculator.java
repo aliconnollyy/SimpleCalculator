@@ -7,66 +7,54 @@ public static int evaluate(String expression)
     {
         char[] terms = expression.toCharArray();
  
-        Stack<Integer> values = new
-                              Stack<Integer>();
+        Stack<Integer> values = new Stack<Integer>();
  
-        Stack<Character> operators = new
-                              Stack<Character>();
+        Stack<Character> operators = new Stack<Character>();
  
         for (int i = 0; i < terms.length; i++)
-        {
-             
+        {  
             if (terms[i] == ' ')
                 continue;
  
             if (terms[i] >= '0' &&
                  terms[i] <= '9')
             {
-                StringBuffer stringBuffer = new
-                            StringBuffer();
+                StringBuffer stringBuffer = new StringBuffer();
                  
-                while (i < terms.length &&
-                        terms[i] >= '0' &&
-                          terms[i] <= '9')
+                while (i < terms.length && terms[i] >= '0' && terms[i] <= '9')
+                {
                     stringBuffer.append(terms[i++]);
-                values.push(Integer.parseInt(stringBuffer.
-                                      toString()));
+                }
+                values.push(Integer.parseInt(stringBuffer.toString()));
                
-                  i--;
+                i--;
             }
- 
             else if (terms[i] == '(')
+            {
                 operators.push(terms[i]);
- 
+            }
             else if (terms[i] == ')')
             {
                 while (operators.peek() != '(')
-                  values.push(applyOp(operators.pop(),
-                                   values.pop(),
-                                 values.pop()));
+                {
+                  values.push(applyOp(operators.pop(), values.pop(), values.pop()));
+                }
                 operators.pop();
             }
- 
-            else if (terms[i] == '+' ||
-                     terms[i] == '-' ||
-                     terms[i] == '*')
+            else if (terms[i] == '+' || terms[i] == '-' || terms[i] == '*')
             {
-
-                while (!operators.empty() &&
-                       hasPrecedence(terms[i],
-                                    operators.peek()))
-                  values.push(applyOp(operators.pop(),
-                                   values.pop(),
-                                 values.pop()));
- 
+                while (!operators.empty() && hasPrecedence(terms[i], operators.peek()))
+                {
+                  values.push(applyOp(operators.pop(), values.pop(), values.pop()));
+                }
                 operators.push(terms[i]);
             }
         }
  
         while (!operators.empty())
-            values.push(applyOp(operators.pop(),
-                             values.pop(),
-                           values.pop()));
+        {
+            values.push(applyOp(operators.pop(), values.pop(), values.pop()));
+        }
  
         return values.pop();
     }
@@ -87,7 +75,7 @@ public static int evaluate(String expression)
         }
     }
 
-    public static int applyOp(char operator, int operand1, int operand2)
+    public static int applyOp(char operator, int operand2, int operand1)
     {
         switch (operator)
         {
